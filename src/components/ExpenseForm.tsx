@@ -13,6 +13,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onSubmit, onClose, expenseToE
   const [date, setDate] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('Credit Card');
 
+  // Populate form if editing an existing expense
   useEffect(() => {
     if (expenseToEdit) {
       setAmount(expenseToEdit.amount.toString());
@@ -28,13 +29,14 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onSubmit, onClose, expenseToE
     }
   }, [expenseToEdit]);
 
+  // Handle form submission
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!amount || !category || !date) {
             alert("Please fill in all required fields.");
             return;
         }
-
+        // Prepare expense data
         const expenseData = {
             amount: parseFloat(amount),
             category,
